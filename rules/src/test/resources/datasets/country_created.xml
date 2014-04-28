@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<dataset>
+    <COUNTRY code="FRA" name="France"/>
+    <COUNTRY code="USA" name="United States"/>
+    <COUNTRY code="CODE" name="Libelle"/>
+</dataset>
