@@ -26,6 +26,7 @@ import java.util.Properties;
 /**
  * Classe parente de toutes nos classes de tests permettant de charger le contexte Spring des tests propres
  * au repository
+ *
  * @author ehret_g
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,16 +37,15 @@ public abstract class AbstractDbunitRepositoryTest {
 
     private static Properties properties = new Properties();
     protected IDatabaseTester databaseTester;
-    protected static String databaseJdbcDriver, databaseUrl, databaseUsername, databasePassword;
+    protected static String databaseJdbcDriver;
+    protected static String databaseUrl;
+    protected static String databaseUsername;
+    protected static String databasePassword;
     protected IDataSet dataSet;
-
-
-
-    protected abstract IDataSet readDataSet();
 
     @BeforeClass
     public static void initProperties() throws IOException {
-        if(databaseJdbcDriver==null) {
+        if (databaseJdbcDriver == null) {
             properties.load(AbstractDbunitRepositoryTest.class.getResourceAsStream("/application.properties"));
             databaseJdbcDriver = properties.getProperty("db.driver");
             databaseUrl = properties.getProperty("db.url");
@@ -63,6 +63,9 @@ public abstract class AbstractDbunitRepositoryTest {
         databaseTester.setDataSet(dataSet);
         databaseTester.onSetup();
     }
+
+    protected abstract IDataSet readDataSet();
+
 
     public AbstractDbunitRepositoryTest assertTableInDatabaseIsEqualToXmlDataset(String tableName, String pathDataSetExpected, String... includedColumns) {
         try {
